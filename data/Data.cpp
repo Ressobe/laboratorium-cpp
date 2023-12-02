@@ -1,7 +1,7 @@
 #include "Data.h"
 
-void Data::Koryguj()
-{
+
+void Data::Koryguj() {
 	if (this->m_nDzien <= 0) this->m_nDzien = 1;
 
 	if (this->m_nMiesiac <= 0) this->m_nMiesiac = 1;
@@ -48,21 +48,21 @@ void Data::Koryguj()
 	}
 }
 
-void Data::Ustaw(int d, int m, int r)
-{
+
+void Data::Ustaw(int d, int m, int r) {
 	this->m_nDzien = d;
 	this->m_nMiesiac = m;
 	this->m_nRok = r;
 	this->Koryguj();
 }
 
-void Data::Wypisz() const
-{
+
+void Data::Wypisz() const {
 	std::cout << this->m_nDzien << '-' << this->m_nMiesiac << '-' << this->m_nRok << std::endl;
 }
 
-void Data::Wpisz()
-{
+
+void Data::Wpisz() {
 	int d, m, r;
 	std::cout << "Podaj dzien: ";
 	std::cin >> d;
@@ -76,8 +76,8 @@ void Data::Wpisz()
 	this->Ustaw(d, m, r);
 }
 
-int Data::Porownaj(const Data& wzor) const
-{
+
+int Data::Porownaj(const Data& wzor) const {
 	if (this->m_nDzien == wzor.m_nDzien && this->m_nMiesiac == wzor.m_nMiesiac && this->m_nRok == wzor.m_nRok) {
 		return 0;
 	}
@@ -98,17 +98,17 @@ int Data::Porownaj(const Data& wzor) const
 	return -1;
 }
 
-int Data::Dzien() const
-{
+
+int Data::Dzien() const {
 	return this->m_nDzien;
 }
 
-int Data::Miesiac() const
-{
+
+int Data::Miesiac() const {
 	return this->m_nMiesiac;
 }
 
-int Data::Rok() const
-{
+
+int Data::Rok() const {
 	return this->m_nRok;
 }
