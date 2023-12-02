@@ -1,6 +1,28 @@
 #include "Pracownik.h"
 
 
+int Pracownik::s_nLiczbaPracownikow = 0;
+
+
+Pracownik::Pracownik(const char* im, const char* naz, int dzien, int miesiac, int rok) 
+	: m_Imie(im), m_Nazwisko(naz), m_DataUrodzenia(dzien, miesiac, rok), m_nIDZatrudnienia(++s_nLiczbaPracownikow) {}
+
+
+Pracownik::Pracownik(const Pracownik& wzor) : m_nIDZatrudnienia(++s_nLiczbaPracownikow) {
+	m_Imie.Ustaw(wzor.Imie());
+	m_Nazwisko.Ustaw(wzor.Nazwisko());
+}
+
+
+Pracownik& Pracownik::operator=(const Pracownik& wzor) {
+    if (this != &wzor) {
+        this->m_Imie.Ustaw(wzor.Imie());
+        this->m_Nazwisko.Ustaw(wzor.Nazwisko());
+    }
+
+	return *this;
+}
+
 int Pracownik::Porownaj(const Pracownik& wzorzec) const {
     int porownanieImie = this->m_Imie.SprawdzNapis(wzorzec.Imie());
     int porownanieNazwisko = this->m_Nazwisko.SprawdzNapis(wzorzec.Nazwisko());
@@ -44,23 +66,25 @@ void Pracownik::DataUrodzenia(int nowy_dzien, int nowy_miesiac, int nowy_rok) {
 void Pracownik::Wypisz() const {
 	std::cout << this->m_Imie.Zwroc() << "		" << this->m_Nazwisko.Zwroc() << "		";
 	this->m_DataUrodzenia.Wypisz();    
-  std::cout << std::endl;
+	std::cout << std::endl;
 }
 
 
 void Pracownik::Wpisz() {
   std::cin.ignore();
+
   std::cout << "Dane pracownika" << std::endl;
   std::cout << "-------------------------" << std::endl;
-	std::cout << "\nPodaj imie: ";
-	this->m_Imie.Wpisz();
+  std::cout << "\nPodaj imie: ";
+  this->m_Imie.Wpisz();
 
-	std::cout << "\nPodaj nazwisko: ";
-	this->m_Nazwisko.Wpisz();
+  std::cout << "\nPodaj nazwisko: ";
+  this->m_Nazwisko.Wpisz();
 
-	std::cout << "\nPodaj date urodzenia:	" << std::endl;
-	this->m_DataUrodzenia.Wpisz();
+  std::cout << "\nPodaj date urodzenia:	" << std::endl;
+  this->m_DataUrodzenia.Wpisz();
   std::cout << "-------------------------" << std::endl;
+
   std::cin.ignore();
 }
 

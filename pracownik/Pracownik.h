@@ -9,9 +9,16 @@ class Pracownik {
     Napis m_Imie;
     Napis m_Nazwisko;
     Data m_DataUrodzenia;
+    static int s_nLiczbaPracownikow; 
+    const int m_nIDZatrudnienia;
 
   public:
     Pracownik* m_pNastepny = nullptr;
+
+    Pracownik(const char* im = "", const char * naz = "", int dzien = 1, int miesiac = 1, int rok = 2000); 
+    Pracownik(const Pracownik& wzor);
+    Pracownik& operator=(const Pracownik & wzor);
+
     int Porownaj(const Pracownik& wzorzec) const;
 
     const char* Imie() const;

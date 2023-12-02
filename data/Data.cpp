@@ -1,6 +1,11 @@
 #include "Data.h"
 
 
+Data::Data(int d, int m, int r) : m_nDzien(d), m_nMiesiac(m), m_nRok(r) {
+	this->Koryguj();
+}
+
+
 void Data::Koryguj() {
 	if (this->m_nDzien <= 0) this->m_nDzien = 1;
 
@@ -47,6 +52,7 @@ void Data::Koryguj() {
 		return;
 	}
 }
+
 
 
 void Data::Ustaw(int d, int m, int r) {

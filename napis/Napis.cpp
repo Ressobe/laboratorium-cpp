@@ -1,14 +1,47 @@
 #include "Napis.h"
 
 
+Napis::Napis(const char* nap) {
+    m_nDl = strlen(nap) + 1;
+    m_pszNapis = new char[this->m_nDl];
+    strcpy(m_pszNapis, nap);
+}
+
+
+Napis::~Napis() {
+	delete[] m_pszNapis;
+	m_pszNapis = nullptr;
+}
+
+
+Napis::Napis(const Napis& wzor) {
+    m_nDl = strlen(wzor.Zwroc()) + 1;
+    m_pszNapis = new char[m_nDl];
+    strcpy(m_pszNapis, wzor.Zwroc());
+}
+
+
+Napis& Napis::operator=(const Napis& wzor) {
+    if (this != &wzor) {
+        delete[] this->m_pszNapis;
+        this->m_nDl = strlen(wzor.Zwroc()) + 1;
+        this->m_pszNapis = new char[this->m_nDl];
+        strcpy(this->m_pszNapis, wzor.Zwroc());
+    }
+
+    return *this;
+}
+
 const char* Napis::Zwroc() const {
     return m_pszNapis;
 }
 
 
 void Napis::Ustaw(const char* nowy_napis) {
-    strncpy(m_pszNapis, nowy_napis, sizeof(m_pszNapis) - 1);
-    m_pszNapis[sizeof(m_pszNapis) - 1] = '\0';
+     delete[] m_pszNapis;
+     m_nDl = strlen(nowy_napis) + 1;
+     m_pszNapis = new char[m_nDl];
+     strcpy(m_pszNapis, nowy_napis);
 }
 
 
@@ -18,7 +51,15 @@ void Napis::Wypisz() const {
 
 
 void Napis::Wpisz() {
-    std::cin.getline(m_pszNapis, sizeof(m_pszNapis));
+    delete[] m_pszNapis;
+    const int maxBufferSize = 1000;
+
+    char buffer[maxBufferSize];
+    std::cin.getline(buffer, maxBufferSize);
+
+    m_nDl = strlen(buffer) + 1;
+    m_pszNapis = new char[m_nDl];
+    strcpy(m_pszNapis, buffer);
 }
 
 
