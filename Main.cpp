@@ -1,6 +1,5 @@
 #include <iostream>
 #include "./pracownik/ListaPracownikow.h"
-#include "./pracownik/Pracownik.h"
 
 
 void WyswietlMenu() {
@@ -12,6 +11,7 @@ void WyswietlMenu() {
     std::cout << "e) Znajdz pracownika po dacie urodzenia\n";
     std::cout << "q) Zakoncz program\n";
 }
+
 
 
 int main() {

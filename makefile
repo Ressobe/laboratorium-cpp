@@ -1,24 +1,45 @@
 CC = g++
-CFLAGS = -Wall -std=c++17
+CFLAGS = -std=c++17 -Wall
+LFLAGS = -I.
 
-SRCDIR = .
-OBJDIR = obj
-BINDIR = bin
+SRC_DIR = .
+OBJ_DIR = obj
+BIN_DIR = bin
 
-SRCS = $(wildcard $(SRCDIR)/*.cpp)
-OBJS = $(patsubst $(SRCDIR)/%.cpp, $(OBJDIR)/%.o, $(SRCS))
-TARGET = $(BINDIR)/main
+# Lista plików źródłowych
+SRCS = $(wildcard $(SRC_DIR)/*.cpp)
+# Lista plików obiektowych
+OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS))
+# Nazwa finalnej aplikacji
+TARGET = $(BIN_DIR)/main
+
+# Dodaj pliki źródłowe i pliki obiektowe związane z klasami ListaPracownikow i Pracownik
+SRCS += $(wildcard $(SRC_DIR)/pracownik/*.cpp)
+OBJS += $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(wildcard $(SRC_DIR)/pracownik/*.cpp))
+
+# Dodaj pliki źródłowe i pliki obiektowe związane z katalogiem data
+SRCS += $(wildcard $(SRC_DIR)/data/*.cpp)
+OBJS += $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(wildcard $(SRC_DIR)/data/*.cpp))
+
+# Dodaj pliki źródłowe i pliki obiektowe związane z katalogiem napis
+SRCS += $(wildcard $(SRC_DIR)/napis/*.cpp)
+OBJS += $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(wildcard $(SRC_DIR)/napis/*.cpp))
+
+# Dodaj pliki źródłowe i pliki obiektowe związane z katalogiem tester
+SRCS += $(wildcard $(SRC_DIR)/tester/*.cpp)
+OBJS += $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(wildcard $(SRC_DIR)/tester/*.cpp))
 
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+	@mkdir -p $(BIN_DIR)
+	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(OBJ_DIR) $(dir $@)
+	$(CC) $(CFLAGS) -c -o $@ $< $(LFLAGS)
 
 .PHONY: clean
 
 clean:
-	rm -rf $(OBJDIR)/*.o $(TARGET)
-
+	rm -rf $(OBJ_DIR) $(BIN_DIR)

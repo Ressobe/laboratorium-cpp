@@ -49,6 +49,7 @@ void Pracownik::Wypisz() const {
 
 
 void Pracownik::Wpisz() {
+  std::cin.ignore();
   std::cout << "Dane pracownika" << std::endl;
   std::cout << "-------------------------" << std::endl;
 	std::cout << "\nPodaj imie: ";
