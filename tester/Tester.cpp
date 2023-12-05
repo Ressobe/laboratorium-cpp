@@ -106,3 +106,36 @@ void Tester::testPracownik() {
         std::cout << "Obiekt pracownik1 jest alfabetycznie wcześniej niż pracownik2.\n";
     }
 }
+
+
+void Tester::testPracownik2() {
+    Pracownik pracownik1("Anna", "Kowalska", 15, 5, 1990);
+    Pracownik pracownik2("Jan", "Nowak", 20, 8, 1985);
+
+    std::cout << "Informacje o pracownikach:" << std::endl;
+    pracownik1.Wypisz();
+    pracownik2.Wypisz();
+    std::cout << std::endl;
+
+    // konstruktor kopiujacy
+    Pracownik pracownik3 = pracownik1;
+    std::cout << "Pracownik 3 (skopiowany z pracownika 1):" << std::endl;
+    pracownik3.Wypisz();
+    std::cout << std::endl;
+
+    // przeciazenie operatora przypisania
+    Pracownik pracownik4("Adam", "Mickiewicz", 1, 12, 1810);
+    pracownik4 = pracownik2;
+    std::cout << "Pracownik 4 (przypisany z pracownika 2):" << std::endl;
+    pracownik4.Wypisz();
+    std::cout << std::endl;
+
+    int porownanie = pracownik1.Porownaj(pracownik2);
+    if (porownanie == 0) {
+        std::cout << "Pracownik 1 jest identyczny z pracownikiem 2." << std::endl;
+    } else if (porownanie > 0) {
+        std::cout << "Pracownik 1 jest pozniejszy niz pracownik 2." << std::endl;
+    } else {
+        std::cout << "Pracownik 1 jest wczesniejszy niz pracownik 2." << std::endl;
+    }
+}

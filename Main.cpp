@@ -4,30 +4,27 @@
 
 
 void testPracownik() {
-// Utworzenie kilku pracowników
     Pracownik pracownik1("Anna", "Kowalska", 15, 5, 1990);
     Pracownik pracownik2("Jan", "Nowak", 20, 8, 1985);
 
-    // Wyœwietlenie informacji o pracownikach
     std::cout << "Informacje o pracownikach:" << std::endl;
     pracownik1.Wypisz();
     pracownik2.Wypisz();
     std::cout << std::endl;
 
-    // Test konstruktora kopiuj¹cego
+    // konstruktor kopiujacy
     Pracownik pracownik3 = pracownik1;
     std::cout << "Pracownik 3 (skopiowany z pracownika 1):" << std::endl;
     pracownik3.Wypisz();
     std::cout << std::endl;
 
-    // Test operatora przypisania
+    // przeciazenie operatora przypisania
     Pracownik pracownik4("Adam", "Mickiewicz", 1, 12, 1810);
     pracownik4 = pracownik2;
     std::cout << "Pracownik 4 (przypisany z pracownika 2):" << std::endl;
     pracownik4.Wypisz();
     std::cout << std::endl;
 
-    // Test porównywania pracowników
     int porownanie = pracownik1.Porownaj(pracownik2);
     if (porownanie == 0) {
         std::cout << "Pracownik 1 jest identyczny z pracownikiem 2." << std::endl;
@@ -104,6 +101,5 @@ void testPracownik() {
 
 
 int main() {
-    testPracownik();
 	return 0;
 }

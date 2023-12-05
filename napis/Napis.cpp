@@ -28,7 +28,6 @@ Napis& Napis::operator=(const Napis& wzor) {
         this->m_pszNapis = new char[this->m_nDl];
         strcpy(this->m_pszNapis, wzor.Zwroc());
     }
-
     return *this;
 }
 
