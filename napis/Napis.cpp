@@ -4,7 +4,7 @@
 Napis::Napis(const char* nap) {
     m_nDl = strlen(nap) + 1;
     m_pszNapis = new char[this->m_nDl];
-    strcpy(m_pszNapis, nap);
+    strncpy(m_pszNapis, nap, m_nDl);
 }
 
 
@@ -17,7 +17,7 @@ Napis::~Napis() {
 Napis::Napis(const Napis& wzor) {
     m_nDl = strlen(wzor.Zwroc()) + 1;
     m_pszNapis = new char[m_nDl];
-    strcpy(m_pszNapis, wzor.Zwroc());
+    strncpy(m_pszNapis, wzor.Zwroc(), m_nDl);
 }
 
 
@@ -26,7 +26,7 @@ Napis& Napis::operator=(const Napis& wzor) {
         delete[] this->m_pszNapis;
         this->m_nDl = strlen(wzor.Zwroc()) + 1;
         this->m_pszNapis = new char[this->m_nDl];
-        strcpy(this->m_pszNapis, wzor.Zwroc());
+        strncpy(this->m_pszNapis, wzor.Zwroc(), m_nDl);
     }
     return *this;
 }
@@ -40,7 +40,7 @@ void Napis::Ustaw(const char* nowy_napis) {
      delete[] m_pszNapis;
      m_nDl = strlen(nowy_napis) + 1;
      m_pszNapis = new char[m_nDl];
-     strcpy(m_pszNapis, nowy_napis);
+     strncpy(m_pszNapis, nowy_napis, m_nDl);
 }
 
 
@@ -58,7 +58,7 @@ void Napis::Wpisz() {
 
     m_nDl = strlen(buffer) + 1;
     m_pszNapis = new char[m_nDl];
-    strcpy(m_pszNapis, buffer);
+    strncpy(m_pszNapis, buffer, m_nDl);
 }
 
 
