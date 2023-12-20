@@ -23,6 +23,14 @@ Pracownik& Pracownik::operator=(const Pracownik& wzor) {
 	return *this;
 }
 
+bool Pracownik::operator==(const Pracownik& wzor) const
+{
+	if (this->Porownaj(wzor) == 0) {
+		return true;
+	}
+	return false;
+}
+
 int Pracownik::Porownaj(const Pracownik& wzorzec) const {
     int porownanieImie = this->m_Imie.SprawdzNapis(wzorzec.Imie());
     int porownanieNazwisko = this->m_Nazwisko.SprawdzNapis(wzorzec.Nazwisko());
@@ -96,4 +104,20 @@ int Pracownik::SprawdzImie(const char* por_imie) const {
 
 int Pracownik::SprawdzNazwisko(const char* por_nazwisko) const {
 	return this->m_Nazwisko.SprawdzNapis(por_nazwisko);
+}
+
+std::ostream& operator<<(std::ostream& wy, const Pracownik& p)
+{
+	wy << p.Imie() << std::endl;
+	wy << p.Nazwisko() << std::endl;
+	wy << p.m_Nazwisko.Zwroc();
+	return wy;
+}
+
+std::istream& operator>>(std::istream& we, Pracownik& p)
+{
+	we >> p.m_Imie;
+	we >> p.m_Nazwisko;
+	we >> p.m_DataUrodzenia;
+	return we;
 }

@@ -18,6 +18,10 @@ class Pracownik {
     Pracownik(const char* im = "", const char * naz = "", int dzien = 1, int miesiac = 1, int rok = 2000); 
     Pracownik(const Pracownik& wzor);
     Pracownik& operator=(const Pracownik & wzor);
+    bool operator==(const Pracownik & wzor) const;
+
+    friend std::ostream & operator<<(std::ostream & wy, const Pracownik & p);
+    friend std::istream & operator>>(std::istream & we, Pracownik & p);
 
     int Porownaj(const Pracownik& wzorzec) const;
 

@@ -118,3 +118,20 @@ int Data::Miesiac() const {
 int Data::Rok() const {
 	return this->m_nRok;
 }
+
+std::ostream& operator<<(std::ostream& wy, const Data& d)
+{
+	wy << d.m_nDzien << std::endl;
+	wy << d.m_nMiesiac << std::endl;
+	wy << d.m_nRok << std::endl;
+	return wy;
+}
+
+std::istream& operator>>(std::istream& we, Data& d)
+{
+	we >> d.m_nDzien;
+	we >> d.m_nMiesiac;
+	we >> d.m_nRok;
+
+	return we;
+}

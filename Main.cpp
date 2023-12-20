@@ -1,6 +1,7 @@
 #include <iostream>
 #include "napis/Napis.h"
 #include "pracownik/Pracownik.h"
+#include "data/Data.h"
 
 
 void testPracownik() {
@@ -101,5 +102,28 @@ void testPracownik() {
 
 
 int main() {
+
+ /*   Data data1(12, 11, 2002);
+    Data data2;*/
+
+    Napis napis1("nowy napisdksldkls");
+    Napis napis2("nowy napis");
+
+  /*  std::cout << data1;
+
+    std::cin >> data2;
+
+    std::cout << data2;*/
+
+    bool s = napis1 == napis2;
+
+    std::cout << s << std::endl;
+
+    std::cout << napis2 << std::endl;
+
+    std::cin >> napis1;
+
+    std::cout << napis2;
+
 	return 0;
 }

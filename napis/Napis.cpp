@@ -31,6 +31,14 @@ Napis& Napis::operator=(const Napis& wzor) {
     return *this;
 }
 
+bool Napis::operator==(const Napis& wzor) const
+{
+    if (this->SprawdzNapis(wzor.Zwroc()) == 0) {
+        return true;
+    }
+    return false;
+}
+
 const char* Napis::Zwroc() const {
     return m_pszNapis;
 }
@@ -64,4 +72,16 @@ void Napis::Wpisz() {
 
 int Napis::SprawdzNapis(const char* por_napis) const {
     return strcmp(m_pszNapis, por_napis);
+}
+
+std::ostream& operator<<(std::ostream& wy, const Napis& p)
+{
+    wy << p.m_pszNapis;
+    return wy;
+}
+
+std::istream& operator>>(std::istream& we, Napis& p)
+{
+    we >> p.m_pszNapis;
+    return we;
 }
