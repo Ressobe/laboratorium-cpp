@@ -21,6 +21,7 @@ class Data {
     int Dzien() const;
     int Miesiac() const;
     int Rok() const;
-    friend std::ostream & operator<<(std::ostream & wy, const Data & d);
-    friend std::istream & operator>>(std::istream & we, Data & d);
+
+    friend std::ostream & operator<<(std::ostream& wy, const Data& d);
+    friend std::istream & operator>>(std::istream& we, Data& d);
 };
