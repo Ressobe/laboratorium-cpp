@@ -1,16 +1,18 @@
 #include "Pracownik.h"
-
+#include "../data/Data.h"
 
 int Pracownik::s_nLiczbaPracownikow = 0;
 
 
 Pracownik::Pracownik(const char* im, const char* naz, int dzien, int miesiac, int rok) 
-	: m_Imie(im), m_Nazwisko(naz), m_DataUrodzenia(dzien, miesiac, rok), m_nIDZatrudnienia(++s_nLiczbaPracownikow) {}
+	: m_Imie(im), m_Nazwisko(naz), m_DataUrodzenia(Data(dzien, miesiac, rok)), m_nIDZatrudnienia(++s_nLiczbaPracownikow) {
+}
 
 
 Pracownik::Pracownik(const Pracownik& wzor) : m_nIDZatrudnienia(++s_nLiczbaPracownikow) {
 	m_Imie.Ustaw(wzor.Imie());
 	m_Nazwisko.Ustaw(wzor.Nazwisko());
+  m_DataUrodzenia.Ustaw(wzor.m_DataUrodzenia.Dzien(), wzor.m_DataUrodzenia.Miesiac(), wzor.m_DataUrodzenia.Rok());
 }
 
 
@@ -23,8 +25,7 @@ Pracownik& Pracownik::operator=(const Pracownik& wzor) {
 	return *this;
 }
 
-bool Pracownik::operator==(const Pracownik& wzor) const
-{
+bool Pracownik::operator==(const Pracownik& wzor) const {
 	if (this->Porownaj(wzor) == 0) {
 		return true;
 	}
@@ -65,16 +66,13 @@ void Pracownik::Nazwisko(const char* nowe_nazwisko) {
 	this->m_Nazwisko.Ustaw(nowe_nazwisko);
 }
 
-
 void Pracownik::DataUrodzenia(int nowy_dzien, int nowy_miesiac, int nowy_rok) {
 	this->m_DataUrodzenia.Ustaw(nowy_dzien, nowy_miesiac, nowy_rok);
 }
 
 
 void Pracownik::Wypisz() const {
-	std::cout << this->m_Imie.Zwroc() << "		" << this->m_Nazwisko.Zwroc() << "		";
-	this->m_DataUrodzenia.Wypisz();    
-	std::cout << std::endl;
+	std::cout << *this;
 }
 
 
@@ -106,16 +104,12 @@ int Pracownik::SprawdzNazwisko(const char* por_nazwisko) const {
 	return this->m_Nazwisko.SprawdzNapis(por_nazwisko);
 }
 
-std::ostream& operator<<(std::ostream& wy, const Pracownik& p)
-{
-	wy << p.Imie() << std::endl;
-	wy << p.Nazwisko() << std::endl;
-	wy << p.m_Nazwisko.Zwroc();
+std::ostream& operator<<(std::ostream& wy, const Pracownik& p) {
+	wy << p.m_Imie << ',' << p.m_Nazwisko << ',' << p.m_DataUrodzenia;
 	return wy;
 }
 
-std::istream& operator>>(std::istream& we, Pracownik& p)
-{
+std::istream& operator>>(std::istream& we, Pracownik& p) {
 	we >> p.m_Imie;
 	we >> p.m_Nazwisko;
 	we >> p.m_DataUrodzenia;

@@ -9,6 +9,7 @@ class Pracownik {
     Napis m_Imie;
     Napis m_Nazwisko;
     Data m_DataUrodzenia;
+
     static int s_nLiczbaPracownikow; 
     const int m_nIDZatrudnienia;
 
@@ -20,8 +21,8 @@ class Pracownik {
     Pracownik& operator=(const Pracownik & wzor);
     bool operator==(const Pracownik & wzor) const;
 
-    friend std::ostream & operator<<(std::ostream & wy, const Pracownik & p);
-    friend std::istream & operator>>(std::istream & we, Pracownik & p);
+    friend std::ostream & operator<<(std::ostream& wy, const Pracownik& p);
+    friend std::istream & operator>>(std::istream& we, Pracownik& p);
 
     int Porownaj(const Pracownik& wzorzec) const;
 
