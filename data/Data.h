@@ -7,6 +7,7 @@ class Data {
     int m_nDzien = 0;
     int m_nMiesiac = 0;
     int m_nRok = 0;
+
     void Koryguj();
 
   public:
