@@ -37,13 +37,15 @@ int Pracownik::Porownaj(const Pracownik& wzorzec) const {
     int porownanieNazwisko = this->m_Nazwisko.SprawdzNapis(wzorzec.Nazwisko());
     int porownanieData = this->m_DataUrodzenia.Porownaj(wzorzec.m_DataUrodzenia);
 
-    if (porownanieImie == 0 && porownanieNazwisko == 0 && porownanieData == 0) {
-        return 0;
-    } else if (porownanieImie > 0 || porownanieNazwisko > 0 || porownanieData > 0) {
-        return 1;
-    } else {
-        return -1;
+    if (porownanieNazwisko != 0) {
+        return porownanieNazwisko;
     }
+
+    if (porownanieImie != 0) {
+        return porownanieImie;
+    }
+
+    return porownanieData;
 }
 
 
@@ -66,13 +68,15 @@ void Pracownik::Nazwisko(const char* nowe_nazwisko) {
 	this->m_Nazwisko.Ustaw(nowe_nazwisko);
 }
 
+
 void Pracownik::DataUrodzenia(int nowy_dzien, int nowy_miesiac, int nowy_rok) {
 	this->m_DataUrodzenia.Ustaw(nowy_dzien, nowy_miesiac, nowy_rok);
 }
 
 
 void Pracownik::Wypisz() const {
-	std::cout << *this;
+	std::cout << this->Imie() << ',' << this->Nazwisko() << ',';
+  this->m_DataUrodzenia.Wypisz();
 }
 
 
@@ -104,10 +108,12 @@ int Pracownik::SprawdzNazwisko(const char* por_nazwisko) const {
 	return this->m_Nazwisko.SprawdzNapis(por_nazwisko);
 }
 
+
 std::ostream& operator<<(std::ostream& wy, const Pracownik& p) {
 	wy << p.m_Imie << ',' << p.m_Nazwisko << ',' << p.m_DataUrodzenia;
 	return wy;
 }
+
 
 std::istream& operator>>(std::istream& we, Pracownik& p) {
 	we >> p.m_Imie;

@@ -16,16 +16,10 @@ class Pracownik {
   public:
     Pracownik* m_pNastepny = nullptr;
 
-    Pracownik(const char* im = "", const char * naz = "", int dzien = 1, int miesiac = 1, int rok = 2000); 
+    Pracownik(const char* im = "", const char * naz = "", int dzien = 1, int miesiac = 1, int rok = 1); 
     Pracownik(const Pracownik& wzor);
-    Pracownik& operator=(const Pracownik & wzor);
-    bool operator==(const Pracownik & wzor) const;
-
-    friend std::ostream & operator<<(std::ostream& wy, const Pracownik& p);
-    friend std::istream & operator>>(std::istream& we, Pracownik& p);
 
     int Porownaj(const Pracownik& wzorzec) const;
-
     const char* Imie() const;
     const char* Nazwisko() const;
 
@@ -38,4 +32,10 @@ class Pracownik {
 
     int SprawdzImie(const char* por_imie) const;
     int SprawdzNazwisko(const char* por_nazwisko) const;
+
+    Pracownik& operator=(const Pracownik & wzor);
+    bool operator==(const Pracownik & wzor) const;
+
+    friend std::ostream & operator<<(std::ostream& wy, const Pracownik& p);
+    friend std::istream & operator>>(std::istream& we, Pracownik& p);
 };

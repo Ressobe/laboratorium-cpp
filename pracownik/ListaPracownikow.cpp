@@ -90,43 +90,50 @@ const Pracownik* ListaPracownikow::Szukaj(const char* nazwisko, const char* imie
 		if ((checkImie == 0) && (checkNazwisko == 0)) {
 			return p;
 		}
-      p = p->m_pNastepny;
+    p = p->m_pNastepny;
 	}
 	return nullptr;
 }
 
+
 void ListaPracownikow::WyswietlMenu() {
-   std::cout << "Menu:\n";
-   std::cout << "a) Dodaj pracownika\n";
-   std::cout << "b) Usun pracownika\n";
-   std::cout << "c) Wypisz liste pracownikow\n";
-   std::cout << "d) Znajdz pracownika po nazwisku i imieniu\n";
-   std::cout << "q) Zakoncz program\n";
+   std::cout << std::endl;
+   std::cout << "Lista pracownikow menu:" << std::endl;
+   std::cout << "a) Dodaj pracownika" << std::endl;
+   std::cout << "b) Usun pracownika" << std::endl;
+   std::cout << "c) Wypisz liste pracownikow" << std::endl;
+   std::cout << "d) Znajdz pracownika po nazwisku i imieniu" << std::endl;
+   std::cout << "s) Zapisz liste pracownikow do pliku" << std::endl;
+   std::cout << "r) Wypisz liste pracownikow z pliku" << std::endl;
+   std::cout << "q) Zakoncz program" << std::endl;
 }
 
+
 void ListaPracownikow::InterfejsDoListy() {
-   ListaPracownikow lista;
    char opcja;
 
    do {
        WyswietlMenu();
-       std::cout << "Wybierz opcje: ";
+       std::cout << "\nWybierz opcje: ";
        std::cin >> opcja;
+       std::system("clear");
        switch (opcja) {
            case 'a': {
                Pracownik nowyPracownik;
                nowyPracownik.Wpisz();
-               lista.Dodaj(nowyPracownik);
+               this->Dodaj(nowyPracownik);
+               std::cout << "Pracownik zostal dodany" << std::endl;
                break;
            }
            case 'b': {
                Pracownik wzorzec;
                wzorzec.Wpisz();
-               lista.Usun(wzorzec);
+               this->Usun(wzorzec);
+               std::cout << "Pracownik zostal usuniety" << std::endl;
                break;
            }
            case 'c':
-               lista.WypiszPracownikow();
+               this->WypiszPracownikow();
                break;
            case 'd': {
                char nazwisko[40], imie[40];
@@ -135,24 +142,36 @@ void ListaPracownikow::InterfejsDoListy() {
                std::cout << "Podaj imie: ";
                std::cin >> imie;
 
-               const Pracownik* znaleziony = lista.Szukaj(nazwisko, imie);
+               const Pracownik* znaleziony = this->Szukaj(nazwisko, imie);
 
                if (znaleziony != nullptr) {
-                   std::cout << "Znaleziono pracownika:\n";
+                   std::cout << "\nZnaleziono pracownika:" << std::endl;
                    znaleziony->Wypisz();
                } else {
-                   std::cout << "Pracownik nie znaleziony.\n";
+                   std::cout << "\nPracownik nie znaleziony." << std::endl;
                }
 
                break;
            }
+           case 's':
+                char save_file[40];
+                std::cout << "Podaj nazwe pliku: ";
+                std::cin >> save_file;
+                this->ZapiszDoPliku(save_file);
+
+                break;
+           case 'r':
+                char read_file[40];
+                std::cout << "Podaj nazwe pliku: ";
+                std::cin >> read_file;
+                this->OdczytajZPliku(read_file);
+                break;
            case 'q':
-               std::cout << "Koniec programu.\n";
                break;
            default:
-               std::cout << "Niepoprawna opcja.\n";
+               std::cout << "Niepoprawna opcja." << std::endl;
+               break;
        }
-
    } while (opcja != 'q');
 }
 
