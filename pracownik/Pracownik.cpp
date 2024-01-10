@@ -20,6 +20,7 @@ Pracownik& Pracownik::operator=(const Pracownik& wzor) {
   if (this != &wzor) {
       this->m_Imie.Ustaw(wzor.Imie());
       this->m_Nazwisko.Ustaw(wzor.Nazwisko());
+      this->m_DataUrodzenia.Ustaw(wzor.m_DataUrodzenia.Dzien(), wzor.m_DataUrodzenia.Miesiac(), wzor.m_DataUrodzenia.Rok());
   }
 	return *this;
 }

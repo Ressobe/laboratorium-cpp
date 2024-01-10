@@ -3,17 +3,20 @@
 Kierownik::Kierownik(Napis nazwaDzialu, int liczbaPracownik) : m_NazwaDzialu(nazwaDzialu) , m_nliczbaPracownikow(liczbaPracownik) {}
 
 Kierownik::Kierownik(const Kierownik& inny) : Pracownik(inny), m_NazwaDzialu(inny.m_NazwaDzialu), m_nliczbaPracownikow(inny.m_nliczbaPracownikow) {}
-// Kierownik& Kierownik::operator=(const Kierownik& wzor) const {
-// 	if (this != &wzor) {
-//         m_NazwaDzialu = wzor.m_NazwaDzialu;
-//         m_nliczbaPracownikow = wzor.m_nliczbaPracownikow;
-// 	}
-//
-//   return *this;
-// }
+
+Kierownik& Kierownik::operator=(const Kierownik& wzor) {
+	if (this != &wzor) {
+        Pracownik::operator=(wzor);
+        this->m_NazwaDzialu = Napis(wzor.m_NazwaDzialu);
+        this->m_nliczbaPracownikow = wzor.m_nliczbaPracownikow;
+	}
+  return *this;
+}
 
 bool Kierownik::operator==(const Kierownik& wzor) const {
-	return this->Porownaj(wzor)  && this->m_NazwaDzialu.SprawdzNapis(wzor.m_NazwaDzialu.Zwroc()) && (this->m_nliczbaPracownikow == wzor.m_nliczbaPracownikow);
+  int check1 = this->m_NazwaDzialu.SprawdzNapis(wzor.m_NazwaDzialu.Zwroc());
+  int check2 = this->m_nliczbaPracownikow == wzor.m_nliczbaPracownikow;
+	return Pracownik::operator==(wzor) && check1 && check2;
 }
 
 void Kierownik::WypiszDane() {

@@ -36,8 +36,8 @@ class Pracownik {
     Pracownik& operator=(const Pracownik & wzor);
     bool operator==(const Pracownik & wzor) const;
 
-    friend std::ostream & operator<<(std::ostream& wy, const Pracownik& p);
-    friend std::istream & operator>>(std::istream& we, Pracownik& p);
+    friend std::ostream& operator<<(std::ostream& wy, const Pracownik& p);
+    friend std::istream& operator>>(std::istream& we, Pracownik& p);
 
     virtual void WypiszDane();
     virtual Pracownik* KopiaObiektu() const;

@@ -11,8 +11,9 @@ public:
 	Kierownik(const Kierownik& inny);
 
 
-	Kierownik& operator=(const Kierownik & wzor) const;
-	bool operator==(const Kierownik & wzor) const;
+	Kierownik& operator=(const Kierownik& wzor);
+
+	bool operator==(const Kierownik& wzor) const;
 
 	void WypiszDane() override;
 	Pracownik* KopiaObiektu() const override;
