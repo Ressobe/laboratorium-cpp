@@ -17,11 +17,10 @@ Pracownik::Pracownik(const Pracownik& wzor) : m_nIDZatrudnienia(++s_nLiczbaPraco
 
 
 Pracownik& Pracownik::operator=(const Pracownik& wzor) {
-    if (this != &wzor) {
-        this->m_Imie.Ustaw(wzor.Imie());
-        this->m_Nazwisko.Ustaw(wzor.Nazwisko());
-    }
-
+  if (this != &wzor) {
+      this->m_Imie.Ustaw(wzor.Imie());
+      this->m_Nazwisko.Ustaw(wzor.Nazwisko());
+  }
 	return *this;
 }
 
@@ -31,6 +30,7 @@ bool Pracownik::operator==(const Pracownik& wzor) const {
 	}
 	return false;
 }
+
 
 int Pracownik::Porownaj(const Pracownik& wzorzec) const {
     int porownanieImie = this->m_Imie.SprawdzNapis(wzorzec.Imie());
@@ -120,4 +120,19 @@ std::istream& operator>>(std::istream& we, Pracownik& p) {
 	we >> p.m_Nazwisko;
 	we >> p.m_DataUrodzenia;
 	return we;
+}
+
+
+void Pracownik::WypiszDane() {
+	this->Wypisz();
+}
+
+
+Pracownik* Pracownik::KopiaObiektu() const {
+	return new Pracownik(*this);
+}
+
+
+Pracownik::~Pracownik() {
+	this->~Pracownik();
 }
