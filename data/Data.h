@@ -7,6 +7,7 @@ class Data {
     int m_nDzien = 0;
     int m_nMiesiac = 0;
     int m_nRok = 0;
+
     void Koryguj();
 
   public:
@@ -21,6 +22,7 @@ class Data {
     int Dzien() const;
     int Miesiac() const;
     int Rok() const;
-    friend std::ostream & operator<<(std::ostream & wy, const Data & d);
-    friend std::istream & operator>>(std::istream & we, Data & d);
+
+    friend std::ostream & operator<<(std::ostream& wy, const Data& d);
+    friend std::istream & operator>>(std::istream& we, Data& d);
 };

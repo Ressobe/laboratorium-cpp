@@ -1,16 +1,18 @@
 #include "Pracownik.h"
-
+#include "../data/Data.h"
 
 int Pracownik::s_nLiczbaPracownikow = 0;
 
 
 Pracownik::Pracownik(const char* im, const char* naz, int dzien, int miesiac, int rok) 
-	: m_Imie(im), m_Nazwisko(naz), m_DataUrodzenia(dzien, miesiac, rok), m_nIDZatrudnienia(++s_nLiczbaPracownikow) {}
+	: m_Imie(im), m_Nazwisko(naz), m_DataUrodzenia(Data(dzien, miesiac, rok)), m_nIDZatrudnienia(++s_nLiczbaPracownikow) {
+}
 
 
 Pracownik::Pracownik(const Pracownik& wzor) : m_nIDZatrudnienia(++s_nLiczbaPracownikow) {
 	m_Imie.Ustaw(wzor.Imie());
 	m_Nazwisko.Ustaw(wzor.Nazwisko());
+  m_DataUrodzenia.Ustaw(wzor.m_DataUrodzenia.Dzien(), wzor.m_DataUrodzenia.Miesiac(), wzor.m_DataUrodzenia.Rok());
 }
 
 
@@ -23,8 +25,7 @@ Pracownik& Pracownik::operator=(const Pracownik& wzor) {
 	return *this;
 }
 
-bool Pracownik::operator==(const Pracownik& wzor) const
-{
+bool Pracownik::operator==(const Pracownik& wzor) const {
 	if (this->Porownaj(wzor) == 0) {
 		return true;
 	}
@@ -36,13 +37,15 @@ int Pracownik::Porownaj(const Pracownik& wzorzec) const {
     int porownanieNazwisko = this->m_Nazwisko.SprawdzNapis(wzorzec.Nazwisko());
     int porownanieData = this->m_DataUrodzenia.Porownaj(wzorzec.m_DataUrodzenia);
 
-    if (porownanieImie == 0 && porownanieNazwisko == 0 && porownanieData == 0) {
-        return 0;
-    } else if (porownanieImie > 0 || porownanieNazwisko > 0 || porownanieData > 0) {
-        return 1;
-    } else {
-        return -1;
+    if (porownanieNazwisko != 0) {
+        return porownanieNazwisko;
     }
+
+    if (porownanieImie != 0) {
+        return porownanieImie;
+    }
+
+    return porownanieData;
 }
 
 
@@ -72,9 +75,8 @@ void Pracownik::DataUrodzenia(int nowy_dzien, int nowy_miesiac, int nowy_rok) {
 
 
 void Pracownik::Wypisz() const {
-	std::cout << this->m_Imie.Zwroc() << "		" << this->m_Nazwisko.Zwroc() << "		";
-	this->m_DataUrodzenia.Wypisz();    
-	std::cout << std::endl;
+	std::cout << this->Imie() << ',' << this->Nazwisko() << ',';
+  this->m_DataUrodzenia.Wypisz();
 }
 
 
@@ -106,16 +108,14 @@ int Pracownik::SprawdzNazwisko(const char* por_nazwisko) const {
 	return this->m_Nazwisko.SprawdzNapis(por_nazwisko);
 }
 
-std::ostream& operator<<(std::ostream& wy, const Pracownik& p)
-{
-	wy << p.Imie() << std::endl;
-	wy << p.Nazwisko() << std::endl;
-	wy << p.m_Nazwisko.Zwroc();
+
+std::ostream& operator<<(std::ostream& wy, const Pracownik& p) {
+	wy << p.m_Imie << ',' << p.m_Nazwisko << ',' << p.m_DataUrodzenia;
 	return wy;
 }
 
-std::istream& operator>>(std::istream& we, Pracownik& p)
-{
+
+std::istream& operator>>(std::istream& we, Pracownik& p) {
 	we >> p.m_Imie;
 	we >> p.m_Nazwisko;
 	we >> p.m_DataUrodzenia;
