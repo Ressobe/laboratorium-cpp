@@ -1,8 +1,18 @@
 #include "Kierownik.h"
 
-Kierownik::Kierownik(Napis nazwaDzialu, int liczbaPracownik) : m_NazwaDzialu(nazwaDzialu) , m_nliczbaPracownikow(liczbaPracownik) {}
+Kierownik::Kierownik(
+      const char* nazwaDzialu, 
+      int liczbaPracownik, 
+      const char* im, 
+      const char* naz, 
+      int dzien, 
+      int miesiac, 
+      int rok
+): Pracownik(im, naz, dzien, miesiac, rok), 
+  m_NazwaDzialu(Napis(nazwaDzialu)) , m_nliczbaPracownikow(liczbaPracownik) {}
 
-Kierownik::Kierownik(const Kierownik& inny) : Pracownik(inny), m_NazwaDzialu(inny.m_NazwaDzialu), m_nliczbaPracownikow(inny.m_nliczbaPracownikow) {}
+Kierownik::Kierownik(const Kierownik& inny) : Pracownik(inny), 
+  m_NazwaDzialu(inny.m_NazwaDzialu), m_nliczbaPracownikow(inny.m_nliczbaPracownikow) {}
 
 Kierownik& Kierownik::operator=(const Kierownik& wzor) {
 	if (this != &wzor) {
@@ -14,16 +24,22 @@ Kierownik& Kierownik::operator=(const Kierownik& wzor) {
 }
 
 bool Kierownik::operator==(const Kierownik& wzor) const {
-  int check1 = this->m_NazwaDzialu.SprawdzNapis(wzor.m_NazwaDzialu.Zwroc());
-  int check2 = this->m_nliczbaPracownikow == wzor.m_nliczbaPracownikow;
-	return Pracownik::operator==(wzor) && check1 && check2;
+  bool check1 = false;
+
+  if (this->m_NazwaDzialu.SprawdzNapis(wzor.m_NazwaDzialu.Zwroc()) == 0) {
+    check1 = true;
+  }
+
+  bool check2 = this->m_nliczbaPracownikow == wzor.m_nliczbaPracownikow;
+  bool check3 = Pracownik::operator==(wzor);
+
+
+	return check1 && check2 && check3; 
 }
 
 void Kierownik::WypiszDane() {
 	this->Wypisz();
-  std::cout << std::endl;
-  std::cout << this->m_nliczbaPracownikow << std::endl;
-  std::cout << this->m_NazwaDzialu << std::endl;
+  std::cout << ',' << this->m_nliczbaPracownikow << ',' << this->m_NazwaDzialu;
 }
 
 Pracownik* Kierownik::KopiaObiektu() const {
@@ -32,19 +48,20 @@ Pracownik* Kierownik::KopiaObiektu() const {
 
 std::ostream& operator<<(std::ostream& wy, const Kierownik& s) {
   s.Wypisz();
+  wy << ','<< s.m_NazwaDzialu << ',' << s.m_nliczbaPracownikow;
   return wy;
 }
 
 std::istream& operator>>(std::istream& wy, Kierownik& s) {
   s.Wpisz();
   std::cin.ignore();
-  std::cout << "-------------------------" << std::endl;
-  std::cout << "Dodatkowe dane dla kierownika" << std::endl;
+  std::cout << "\nDodatkowe dane dla kierownika" << std::endl;
+  std::cout << "-----------------------------" << std::endl;
 
-  std::cout << "Podaj liczbe pracowników" << std::endl;
+  std::cout << "Podaj liczbe pracowników: ";
   wy >> s.m_nliczbaPracownikow;
 
-  std::cout << "Podaj nazwe odzialu" << std::endl;
+  std::cout << "Podaj nazwe odzialu: ";
   wy >> s.m_NazwaDzialu;
 
   return wy;

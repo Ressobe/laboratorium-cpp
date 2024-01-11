@@ -7,12 +7,19 @@ private:
 	int m_nliczbaPracownikow;
 
 public:
-	Kierownik(Napis nazwaDzialu, int liczbaPracownik);
+	Kierownik(
+      const char* nazwaDzialu = "", 
+      int liczbaPracownik = 0, 
+      const char* im = "", 
+      const char* naz = "", 
+      int dzien = 1, 
+      int miesiac = 1, 
+      int rok = 1
+  );
+
 	Kierownik(const Kierownik& inny);
 
-
 	Kierownik& operator=(const Kierownik& wzor);
-
 	bool operator==(const Kierownik& wzor) const;
 
 	void WypiszDane() override;

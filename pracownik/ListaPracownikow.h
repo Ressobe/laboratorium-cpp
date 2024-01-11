@@ -1,8 +1,8 @@
 #pragma once
 
 #include <fstream>
-#include "Pracownik.h"
 #include <iostream>
+#include "Pracownik.h"
 
 class ListaPracownikow {
 	private:
@@ -13,7 +13,6 @@ class ListaPracownikow {
 	public:
 		ListaPracownikow();
 		~ListaPracownikow();
-
 
 		void Dodaj(const Pracownik& p);
 		void Usun(const Pracownik& wzorzec);

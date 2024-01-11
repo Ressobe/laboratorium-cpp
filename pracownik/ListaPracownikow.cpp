@@ -1,4 +1,5 @@
 #include "ListaPracownikow.h"
+#include "Kierownik.h"
 
 
 void ListaPracownikow::Dodaj(const Pracownik& p) {
@@ -7,7 +8,6 @@ void ListaPracownikow::Dodaj(const Pracownik& p) {
     }
 
     Pracownik* newPracownik = new Pracownik(p);
-
     Pracownik* current = m_pPoczatek;
     Pracownik* previous = nullptr;
 
@@ -76,8 +76,10 @@ void ListaPracownikow::WypiszPracownikow() const {
 	Pracownik* p = this->m_pPoczatek;
 	while (p != nullptr) {
 		p->Wypisz();
+    std::cout << std::endl;
 		p = p->m_pNastepny;
 	}
+  std::cout << std::endl;
 }
 
 
@@ -110,24 +112,41 @@ void ListaPracownikow::WyswietlMenu() {
 
 
 void ListaPracownikow::InterfejsDoListy() {
-   char opcja;
+   char opcja, typPracownika;
 
    do {
        WyswietlMenu();
        std::cout << "\nWybierz opcje: ";
        std::cin >> opcja;
        std::system("clear");
+
        switch (opcja) {
            case 'a': {
-               Pracownik nowyPracownik;
-               nowyPracownik.Wpisz();
-               this->Dodaj(nowyPracownik);
-               std::cout << "Pracownik zostal dodany" << std::endl;
+               std::cout << "Wybierz typ pracownika. pracowika (p), kierownik (k): ";
+               std::cin >> typPracownika;
+
+
+               if (typPracownika == 'p') {
+                 Pracownik nowyPracownik = Pracownik();
+                 std::cout << "jestem w p";
+                 std::cin.ignore();
+                 std::cin >> nowyPracownik;
+                 this->Dodaj(nowyPracownik);
+                 std::cout << "Pracownik zostal dodany" << std::endl;
+               }
+               if (typPracownika == 'k') {
+                 Kierownik nowyPracownik = Kierownik();
+                 std::cout << "jestem w k";
+                 std::cin.ignore();
+                 std::cin >> nowyPracownik;
+                 this->Dodaj(nowyPracownik);
+                 std::cout << "Pracownik zostal dodany" << std::endl;
+               }
                break;
            }
            case 'b': {
                Pracownik wzorzec;
-               wzorzec.Wpisz();
+               std::cin >> wzorzec;
                this->Usun(wzorzec);
                std::cout << "Pracownik zostal usuniety" << std::endl;
                break;
@@ -146,7 +165,7 @@ void ListaPracownikow::InterfejsDoListy() {
 
                if (znaleziony != nullptr) {
                    std::cout << "\nZnaleziono pracownika:" << std::endl;
-                   znaleziony->Wypisz();
+                   std::cout << znaleziony;
                } else {
                    std::cout << "\nPracownik nie znaleziony." << std::endl;
                }
@@ -158,7 +177,6 @@ void ListaPracownikow::InterfejsDoListy() {
                 std::cout << "Podaj nazwe pliku: ";
                 std::cin >> save_file;
                 this->ZapiszDoPliku(save_file);
-
                 break;
            case 'r':
                 char read_file[40];

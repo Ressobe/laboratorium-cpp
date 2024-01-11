@@ -82,21 +82,16 @@ void Pracownik::Wypisz() const {
 
 
 void Pracownik::Wpisz() {
-  std::cin.ignore();
-
   std::cout << "Dane pracownika" << std::endl;
   std::cout << "-------------------------" << std::endl;
-  std::cout << "\nPodaj imie: ";
+  std::cout << "Podaj imie: ";
   this->m_Imie.Wpisz();
 
-  std::cout << "\nPodaj nazwisko: ";
+  std::cout << "Podaj nazwisko: ";
   this->m_Nazwisko.Wpisz();
 
-  std::cout << "\nPodaj date urodzenia:	" << std::endl;
+  std::cout << "\nPodaj date urodzenia" << std::endl;
   this->m_DataUrodzenia.Wpisz();
-  std::cout << "-------------------------" << std::endl;
-
-  std::cin.ignore();
 }
 
 
@@ -131,9 +126,4 @@ void Pracownik::WypiszDane() {
 
 Pracownik* Pracownik::KopiaObiektu() const {
 	return new Pracownik(*this);
-}
-
-
-Pracownik::~Pracownik() {
-	this->~Pracownik();
 }

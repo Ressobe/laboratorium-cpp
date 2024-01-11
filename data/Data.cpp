@@ -64,7 +64,7 @@ void Data::Ustaw(int d, int m, int r) {
 
 
 void Data::Wypisz() const {
-	std::cout << this->m_nDzien << '-' << this->m_nMiesiac << '-' << this->m_nRok << std::endl;
+	std::cout << this->m_nDzien << '-' << this->m_nMiesiac << '-' << this->m_nRok;
 }
 
 

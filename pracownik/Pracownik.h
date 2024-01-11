@@ -41,5 +41,5 @@ class Pracownik {
 
     virtual void WypiszDane();
     virtual Pracownik* KopiaObiektu() const;
-    virtual ~Pracownik();
+    virtual ~Pracownik() = default;
 };
