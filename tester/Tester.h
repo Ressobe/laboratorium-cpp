@@ -10,6 +10,5 @@ class Tester {
     void testNapis();
     void testData();
     void testPracownik();
-    void testPracownik2();
     void runTests();
 };
