@@ -7,7 +7,7 @@ void ListaPracownikow::Dodaj(const Pracownik& p) {
         return;
     }
 
-    Pracownik* newPracownik = new Pracownik(p);
+    Pracownik* newPracownik = p.KopiaObiektu();
     Pracownik* current = m_pPoczatek;
     Pracownik* previous = nullptr;
 
@@ -35,6 +35,8 @@ void ListaPracownikow::Usun(const Pracownik& wzorzec) {
     if (this->Szukaj(wzorzec.Nazwisko(), wzorzec.Imie()) == nullptr) {
         return;
     }
+
+    std::cout << "to jest z usun" << std::endl;
 
     Pracownik* current = m_pPoczatek;
     Pracownik* previous = nullptr;
@@ -74,8 +76,9 @@ ListaPracownikow::~ListaPracownikow() {
 
 void ListaPracownikow::WypiszPracownikow() const {
 	Pracownik* p = this->m_pPoczatek;
+
 	while (p != nullptr) {
-		p->Wypisz();
+		p->WypiszDane();
     std::cout << std::endl;
 		p = p->m_pNastepny;
 	}
@@ -106,7 +109,7 @@ void ListaPracownikow::WyswietlMenu() {
    std::cout << "c) Wypisz liste pracownikow" << std::endl;
    std::cout << "d) Znajdz pracownika po nazwisku i imieniu" << std::endl;
    std::cout << "s) Zapisz liste pracownikow do pliku" << std::endl;
-   std::cout << "r) Wypisz liste pracownikow z pliku" << std::endl;
+   std::cout << "r) Wczytaj liste pracownikow z pliku" << std::endl;
    std::cout << "q) Zakoncz program" << std::endl;
 }
 
@@ -125,26 +128,30 @@ void ListaPracownikow::InterfejsDoListy() {
                std::cout << "Wybierz typ pracownika. pracowika (p), kierownik (k): ";
                std::cin >> typPracownika;
 
+               Pracownik* nowyPracownik;
 
                if (typPracownika == 'p') {
-                 Pracownik nowyPracownik = Pracownik();
-                 std::cout << "jestem w p";
                  std::cin.ignore();
-                 std::cin >> nowyPracownik;
-                 this->Dodaj(nowyPracownik);
+                 nowyPracownik = new Pracownik();
+                 std::cin >> *nowyPracownik;
+                 this->Dodaj(*nowyPracownik);
                  std::cout << "Pracownik zostal dodany" << std::endl;
                }
+
                if (typPracownika == 'k') {
-                 Kierownik nowyPracownik = Kierownik();
-                 std::cout << "jestem w k";
                  std::cin.ignore();
-                 std::cin >> nowyPracownik;
-                 this->Dodaj(nowyPracownik);
+                 nowyPracownik = new Kierownik();
+                 std::cin >> *nowyPracownik;
+                 this->Dodaj(*nowyPracownik);
                  std::cout << "Pracownik zostal dodany" << std::endl;
                }
+
+               delete nowyPracownik;
+
                break;
            }
            case 'b': {
+               std::cin.ignore();
                Pracownik wzorzec;
                std::cin >> wzorzec;
                this->Usun(wzorzec);
@@ -155,6 +162,7 @@ void ListaPracownikow::InterfejsDoListy() {
                this->WypiszPracownikow();
                break;
            case 'd': {
+               std::cin.ignore();
                char nazwisko[40], imie[40];
                std::cout << "Podaj nazwisko: ";
                std::cin >> nazwisko;
@@ -182,7 +190,7 @@ void ListaPracownikow::InterfejsDoListy() {
                 char read_file[40];
                 std::cout << "Podaj nazwe pliku: ";
                 std::cin >> read_file;
-                this->OdczytajZPliku(read_file);
+                this->WczytajZPliku(read_file);
                 break;
            case 'q':
                break;
@@ -203,13 +211,17 @@ void ListaPracownikow::ZapiszDoPliku(const char* filename) {
 
     Pracownik* current = m_pPoczatek;
     while (current != nullptr) {
-      outputFile << (*current) << std::endl;
+      if (Kierownik* kierownik = dynamic_cast<Kierownik*>(current)) {
+         outputFile << (*kierownik) << std::endl;
+      } else {
+        outputFile << (*current) << std::endl;
+      }
       current = current->m_pNastepny;
     }
     outputFile.close();
 }
 
-void ListaPracownikow::OdczytajZPliku(const char* filename) {
+void ListaPracownikow::WczytajZPliku(const char* filename) {
     std::ifstream inputFile(filename, std::ios::in);
 
     if (!inputFile.is_open()) {
@@ -219,8 +231,20 @@ void ListaPracownikow::OdczytajZPliku(const char* filename) {
 
     char line[256];
     while (inputFile.getline(line, sizeof(line))) {
-        std::cout << line << std::endl;
-    }
 
+        char imie[50], nazwisko[50], nazwaDzialu[50];
+        int dzien, miesiac, rok, liczbaPracownikow;
+
+        int result = sscanf(line, "%49[^,],%49[^,],%d-%d-%d,%49[^,\n],%d", imie, nazwisko, &dzien, &miesiac, &rok, nazwaDzialu, &liczbaPracownikow);
+        if (result == 5) {
+            Pracownik* newPracownik = new Pracownik(imie, nazwisko, dzien, miesiac, rok);
+            Dodaj(*newPracownik);
+        } else if (result == 7) {
+            Kierownik* newKierownik = new Kierownik(nazwaDzialu, liczbaPracownikow, imie, nazwisko, dzien, miesiac, rok);
+            Dodaj(*newKierownik);
+        } else {
+            std::cerr << "Unknown format encountered in the file." << std::endl;
+        }
+    }
     inputFile.close();
 }

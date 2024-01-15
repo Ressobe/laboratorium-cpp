@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include "Pracownik.h"
+#include "Kierownik.h"
 
 class ListaPracownikow {
 	private:
@@ -21,5 +22,5 @@ class ListaPracownikow {
 
     void InterfejsDoListy();
     void ZapiszDoPliku(const char* filename);
-    void OdczytajZPliku(const char* filename);
+    void WczytajZPliku(const char* filename);
 };
