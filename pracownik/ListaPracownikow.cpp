@@ -36,7 +36,6 @@ void ListaPracownikow::Usun(const Pracownik& wzorzec) {
         return;
     }
 
-    std::cout << "to jest z usun" << std::endl;
 
     Pracownik* current = m_pPoczatek;
     Pracownik* previous = nullptr;
@@ -50,6 +49,11 @@ void ListaPracownikow::Usun(const Pracownik& wzorzec) {
         previous->m_pNastepny = current->m_pNastepny;
         delete current;
         m_nLiczbaPracownikow--;
+    }
+
+    if (current != nullptr) {
+      delete current;
+      m_pPoczatek = nullptr;
     }
 }
 
@@ -114,39 +118,41 @@ void ListaPracownikow::WyswietlMenu() {
 }
 
 
-void ListaPracownikow::InterfejsDoListy() {
+void ListaPracownikow::Interfejs() {
    char opcja, typPracownika;
 
    do {
        WyswietlMenu();
        std::cout << "\nWybierz opcje: ";
        std::cin >> opcja;
-       std::system("clear");
+
+       #ifdef _WIN32
+        std::system("cls");
+       #else
+        std::system("clear");
+       #endif
 
        switch (opcja) {
            case 'a': {
                std::cout << "Wybierz typ pracownika. pracowika (p), kierownik (k): ";
                std::cin >> typPracownika;
 
-               Pracownik* nowyPracownik;
 
                if (typPracownika == 'p') {
                  std::cin.ignore();
-                 nowyPracownik = new Pracownik();
-                 std::cin >> *nowyPracownik;
-                 this->Dodaj(*nowyPracownik);
+                 Pracownik nowyPracownik = Pracownik();
+                 std::cin >> nowyPracownik;
+                 this->Dodaj(nowyPracownik);
                  std::cout << "Pracownik zostal dodany" << std::endl;
                }
 
                if (typPracownika == 'k') {
                  std::cin.ignore();
-                 nowyPracownik = new Kierownik();
-                 std::cin >> *nowyPracownik;
-                 this->Dodaj(*nowyPracownik);
-                 std::cout << "Pracownik zostal dodany" << std::endl;
+                 Kierownik nowyKierownik = Kierownik();
+                 std::cin >> nowyKierownik;
+                 this->Dodaj(nowyKierownik);
+                 std::cout << "Kierownik zostal dodany" << std::endl;
                }
-
-               delete nowyPracownik;
 
                break;
            }

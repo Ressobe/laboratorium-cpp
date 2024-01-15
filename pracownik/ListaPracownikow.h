@@ -20,7 +20,7 @@ class ListaPracownikow {
 		void WypiszPracownikow() const;
 		const Pracownik* Szukaj(const char* nazwisko, const char* imie);
 
-    void InterfejsDoListy();
+    void Interfejs();
     void ZapiszDoPliku(const char* filename);
     void WczytajZPliku(const char* filename);
 };
