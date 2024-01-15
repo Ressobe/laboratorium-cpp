@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Pracownik.h"
 
 class Kierownik : public Pracownik {
@@ -23,8 +24,9 @@ public:
 	bool operator==(const Kierownik& wzor) const;
 
 	void WypiszDane() override;
+  
 	Pracownik* KopiaObiektu() const override;
 
 	friend std::ostream& operator<<(std::ostream& wy, const Kierownik& s);
-	friend std::istream& operator>>(std::istream& wy, Kierownik& s);
+	friend std::istream& operator>>(std::istream& we, Kierownik& s);
 };

@@ -37,7 +37,7 @@ bool Kierownik::operator==(const Kierownik& wzor) const {
 	return check1 && check2 && check3; 
 }
 
-void Kierownik::WypiszDane() {
+void Kierownik::WypiszDane()  {
 	this->Wypisz();
   std::cout << ',' << this->m_nliczbaPracownikow << ',' << this->m_NazwaDzialu;
 }
@@ -47,22 +47,23 @@ Pracownik* Kierownik::KopiaObiektu() const {
 }
 
 std::ostream& operator<<(std::ostream& wy, const Kierownik& s) {
-  s.Wypisz();
-  wy << ','<< s.m_NazwaDzialu << ',' << s.m_nliczbaPracownikow;
+  wy << static_cast<const Pracownik&>(s);
+  wy << ',' << s.m_NazwaDzialu << ',' << s.m_nliczbaPracownikow;
   return wy;
 }
 
-std::istream& operator>>(std::istream& wy, Kierownik& s) {
+std::istream& operator>>(std::istream& we, Kierownik& s) {
   s.Wpisz();
+
   std::cin.ignore();
   std::cout << "\nDodatkowe dane dla kierownika" << std::endl;
   std::cout << "-----------------------------" << std::endl;
 
   std::cout << "Podaj liczbe pracowników: ";
-  wy >> s.m_nliczbaPracownikow;
+  we >> s.m_nliczbaPracownikow;
 
   std::cout << "Podaj nazwe odzialu: ";
-  wy >> s.m_NazwaDzialu;
+  we >> s.m_NazwaDzialu;
 
-  return wy;
+  return we;
 }

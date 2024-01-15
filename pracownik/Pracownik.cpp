@@ -1,5 +1,4 @@
 #include "Pracownik.h"
-#include "../data/Data.h"
 
 int Pracownik::s_nLiczbaPracownikow = 0;
 
@@ -106,23 +105,19 @@ int Pracownik::SprawdzNazwisko(const char* por_nazwisko) const {
 
 
 std::ostream& operator<<(std::ostream& wy, const Pracownik& p) {
-	wy << p.m_Imie << ',' << p.m_Nazwisko << ',' << p.m_DataUrodzenia;
+  wy << p.m_Imie << ',' << p.m_Nazwisko << ',' << p.m_DataUrodzenia;
 	return wy;
 }
 
 
 std::istream& operator>>(std::istream& we, Pracownik& p) {
-	we >> p.m_Imie;
-	we >> p.m_Nazwisko;
-	we >> p.m_DataUrodzenia;
+  p.Wpisz();
 	return we;
 }
-
 
 void Pracownik::WypiszDane() {
 	this->Wypisz();
 }
-
 
 Pracownik* Pracownik::KopiaObiektu() const {
 	return new Pracownik(*this);

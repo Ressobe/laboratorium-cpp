@@ -3,7 +3,6 @@
 #include "../napis/Napis.h"
 #include "../data/Data.h"
 
-
 class Pracownik {
   private:
     Napis m_Imie;
