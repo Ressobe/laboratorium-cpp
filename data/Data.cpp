@@ -125,8 +125,10 @@ std::ostream& operator<<(std::ostream& wy, const Data& d) {
 }
 
 std::istream& operator>>(std::istream& we, Data& d) {
-	we >> d.m_nDzien;
-	we >> d.m_nMiesiac;
-	we >> d.m_nRok;
+  int dzien, miesiac, rok;
+  we >> dzien;
+  we >> miesiac;
+  we >> rok;
+  d.Ustaw(dzien, miesiac, rok);
 	return we;
 }
