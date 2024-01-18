@@ -24,7 +24,6 @@ public:
 	bool operator==(const Kierownik& wzor) const;
 
 	void WypiszDane() override;
-  
 	Pracownik* KopiaObiektu() const override;
 
 	friend std::ostream& operator<<(std::ostream& wy, const Kierownik& s);
