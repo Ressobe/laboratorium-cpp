@@ -83,6 +83,6 @@ std::ostream& operator<<(std::ostream& wy, const Napis& p) {
 
 
 std::istream& operator>>(std::istream& we, Napis& p) {
-    we >> p.m_pszNapis;
+    p.Wpisz();
     return we;
 }
