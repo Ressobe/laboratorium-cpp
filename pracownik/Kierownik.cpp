@@ -55,12 +55,13 @@ std::ostream& operator<<(std::ostream& wy, const Kierownik& s) {
 std::istream& operator>>(std::istream& we, Kierownik& s) {
   s.Wpisz();
 
-  std::cin.ignore();
   std::cout << "\nDodatkowe dane dla kierownika" << std::endl;
   std::cout << "-----------------------------" << std::endl;
 
   std::cout << "Podaj liczbe pracowników: ";
   we >> s.m_nliczbaPracownikow;
+
+  we.ignore();
 
   std::cout << "Podaj nazwe odzialu: ";
   we >> s.m_NazwaDzialu;

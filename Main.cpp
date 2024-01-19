@@ -1,4 +1,5 @@
 #include "./pracownik/ListaPracownikow.h"
+#include "pracownik/Kierownik.h"
 #include "pracownik/Pracownik.h"
 
 void testData();
@@ -8,6 +9,7 @@ void testKierownik();
 void testListaPracownikow();
 
 int main() {
+    testListaPracownikow();
     return 0;
 }
 
@@ -52,13 +54,13 @@ void testNapis() {
     std::cout << "Napis1 po aktualizacji: ";
     napis1.Wypisz();
     std::cout << std::endl;
-
     std::cout << "Napis1 po aktualizacji (operator <<): " << napis1 << std::endl;
 
     Napis napis2;
     std::cout << "Podaj nowy napis: ";
     std::cin >> napis2;
 
+    napis2.Wypisz();
     if (napis1 == napis2) {
         std::cout << "Napis1 i Napis2 są identyczne." << std::endl;
     } else {
@@ -112,6 +114,7 @@ void testKierownik() {
 
     Kierownik kierownik2;
     std::cout << "Podaj dane kierownika (imię, nazwisko, data urodzenia): ";
+    std::cin.ignore();
     std::cin >> kierownik2;
 
     if (kierownik1 == kierownik2) {
@@ -145,7 +148,7 @@ void testListaPracownikow() {
     
     if (znaleziony != nullptr) {
         std::cout << "Znaleziono pracownika:" << std::endl;
-        std::cout << *znaleziony;
+        std::cout << *znaleziony << std::endl;
     } else {
         std::cout << "Pracownik nie znaleziony." << std::endl;
     }
@@ -154,6 +157,6 @@ void testListaPracownikow() {
     ListaPracownikow nowaLista;
     nowaLista.WczytajZPliku("pracownicy.txt");
 
-    std::cout << "Nowa lista wczytana z pliku:" << std::endl;
+    std::cout << "\nNowa lista wczytana z pliku:" << std::endl;
     nowaLista.WypiszPracownikow();
 }
