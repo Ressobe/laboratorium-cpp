@@ -53,8 +53,8 @@ void ListaPracownikow::Usun(const Pracownik& wzorzec) {
     }
 
     if (previous == nullptr && current != nullptr ) {
+      m_pPoczatek = current->m_pNastepny;
       delete current;
-      m_pPoczatek = nullptr;
     }
 }
 
